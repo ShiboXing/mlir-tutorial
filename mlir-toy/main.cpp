@@ -13,10 +13,10 @@ int main(int argc, char ** argv) {
   MLIRContext ctx;
   // 首先，注册需要的 dialect
   ctx.loadDialect<func::FuncDialect, arith::ArithDialect>();
-  // 读入dialect
+  // 读入文件
   auto src = parseSourceFile<ModuleOp>(argv[1], &ctx);
-  // 输出dialect
-  src->print(llvm::outs());
+  // 输出dialect，也可以输出到 llvm::errs(), llvm::dbgs()
+  // src->print(llvm::outs());
   // 简单的输出，在 debug 的时候常用
   src->dump();
   return 0;
