@@ -28,7 +28,10 @@ int main(int argc, char ** argv) {
 
   builder.setInsertionPointToEnd(entry);
   auto addi = builder.create<arith::AddIOp>(builder.getUnknownLoc(), args[0], args[1]);
-  builder.create<func::ReturnOp>(builder.getUnknownLoc(), ValueRange({addi}));
+  auto val1 = builder.create<arith::ConstantIntOp>(builder.getUnknownLoc(), 4, 32);
+  auto mul = builder.create<arith::MulIOp>(builder.getUnknownLoc(), val1.getResult(), addi.getResult());
+  builder.create<func::ReturnOp>(builder.getUnknownLoc(), ValueRange({mul}));
+  
   mod->print(llvm::outs());
 
   return 0;
