@@ -32,7 +32,17 @@ int main(int argc, char ** argv) {
   auto mul = builder.create<arith::MulIOp>(builder.getUnknownLoc(), val1.getResult(), addi.getResult());
   builder.create<func::ReturnOp>(builder.getUnknownLoc(), ValueRange({mul}));
   
-  mod->print(llvm::outs());
+  // mod->print(llvm::outs());
+  mod->walk([](Operation* op){
+    llvm::outs() << "walk: ";
+    op->print(llvm::outs());
+    llvm::outs() << "\n";
+  });
+  func->walk([](Operation* op){
+    llvm::outs() << "op walk: ";
+    op->print(llvm::outs());
+    llvm::outs() << "\n";
+  });
 
   return 0;
 }
