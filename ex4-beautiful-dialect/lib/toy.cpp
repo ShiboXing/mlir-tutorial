@@ -3,6 +3,7 @@
 #include "mlir/Interfaces/CallInterfaces.h"
 #include "mlir/Support/LogicalResult.h"
 #include "mlir/Interfaces/FunctionImplementation.h"
+#include "mlir/Analysis/DataFlow/DeadCodeAnalysis.h"
 #include "toy/ToyDialect.h"
 #include "toy/ToyOps.h"
 
