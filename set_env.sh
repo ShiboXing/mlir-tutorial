@@ -1,2 +1,2 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export PATH=$PATH:"$SCRIPT_DIR/install/bin/"
+export PATH=$PATH:"$SCRIPT_DIR/install/bin:$SCRIPT_DIR/tablegen/build/tools/toy-opt"
