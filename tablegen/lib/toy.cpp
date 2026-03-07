@@ -34,6 +34,13 @@ mlir::LogicalResult ConstantOp::inferReturnTypes(
   return mlir::success();
 }
 
+LogicalResult SubOp::verify() {
+  if (getLhs().getType() != getRhs().getType())
+    return this->emitError() << "Lhs Type " << getLhs().getType()
+      << " not equal to rhs " << getRhs().getType(); 
+  return success();
+}
+
 ParseResult FuncOp::parse(OpAsmParser &parser, OperationState &result) {
   auto buildFuncType = [](auto & builder, auto argTypes, auto results, auto, auto) {
     return builder.getFunctionType(argTypes, results);

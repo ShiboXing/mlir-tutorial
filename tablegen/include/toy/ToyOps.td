@@ -9,10 +9,11 @@ class ToyOp<string mnemonic, list<Trait> traits = []> :
   Op<ToyDialect, mnemonic, traits>;
 
 // Pure 是 Trait，表示没有 SideEffect 的纯函数
-def AddOp : ToyOp<"add", [Pure]> {
+def AddOp : ToyOp<"add", [Pure, SameOperandsAndResultType]> {
   let summary = "add operation";
   let arguments = (ins Variadic<AnyInteger>:$inputs);
   let results = (outs AnyInteger:$result);
+  let assemblyFormat = "$inputs attr-dict `:` type($result)";
 }
 
 def SubOp : ToyOp<"sub", [Pure]> {
@@ -25,7 +26,7 @@ def SubOp : ToyOp<"sub", [Pure]> {
       "build($_builder, $_state, lhs.getType(), lhs, rhs);"
     >
   ];
-  // let hasVerifier = true;
+  let hasVerifier = true;
 }
 
 def ConstantOp : ToyOp<"const", [Pure, InferTypeOpAdaptor]> {
@@ -40,9 +41,10 @@ def ConstantOp : ToyOp<"const", [Pure, InferTypeOpAdaptor]> {
   let assemblyFormat = "$value attr-dict"; // 这里不需要写 type($result) 了
 }
 
-def ReturnOp : ToyOp<"return", [Terminator, ReturnLike]> {
+def ReturnOp : ToyOp<"ret", [Terminator, ReturnLike]> {
   let summary = "return operation";
-  let arguments = (ins Optional<AnyInteger>:$data);
+  let arguments = (ins AnyType:$data);
+  let assemblyFormat = "$data attr-dict `:` type($data)";
 }
 
 def FuncOp : ToyOp<"func", [

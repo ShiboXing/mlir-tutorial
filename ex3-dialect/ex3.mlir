@@ -1,4 +1,4 @@
-func.func @test(%a: i32, %b: i32) -> i32 {
-  %c = "toy.add"(%a, %b): (i32, i32) -> i32
-  func.return %c : i32
+func.func @test(%a: i16, %b: i16) -> i16 {
+  %c = "toy.add"(%a, %b): (i16, i16) -> i16
+  func.return %c : i16
 }
